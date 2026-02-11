@@ -24,4 +24,4 @@ try:
                 continue
 
 except ConnectionResetError:
-    print("Server forcibly closed the connection.")
+    print(f"Failed to connect to listening port {PORT}")
