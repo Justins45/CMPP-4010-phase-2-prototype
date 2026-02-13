@@ -1,18 +1,28 @@
 import unittest
-from main import Counter
+from main import Connector
 
-class TestCounter(unittest.TestCase):
+class TestConnector(unittest.TestCase):
+
+
+    def set_set_ip(self):
+        connector = Connector()
+        connector.set_ip("wasda")
+        self.assertEqual(connector.get_ip(), "wasda")
+
     def test_increment(self):
-        counter = Counter()
-        counter.increment()
-        self.assertEqual(counter.get_count(), 1)
+        connector = Connector()
+        connector.increment_count()
+        self.assertEqual(connector.timed_count, 1)
+        self.assertEqual(connector.total_count, 1)
+
 
     def test_decrement(self):
-        counter = Counter()
-        counter.decrement()
-        self.assertEqual(counter.get_count(), -1)
+        connector = Connector()
+        connector.decrement_timed()
+        self.assertEqual(connector.timed_count, -1)
 
-    def test_kill(self):
-        counter = Counter()
-        counter.kill()
-        self.assertEqual(counter.get_count(), 100000000)
+    def test_reset_timed(self):
+        connector = Connector()
+        connector.increment_count()
+        connector.decrement_timed()
+        self.assertEqual(connector.timed_count, 0)
