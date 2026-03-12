@@ -1,36 +1,14 @@
 import socket
 import threading
 from time import sleep
+import connector
 
-class Connector:
 
-    def __init__(self):
-        self.IP_ADDRESS = ""
-        self.timed_count = 0
-        self.total_count = 0
-
-    def set_ip(self, new_ip):
-        self.IP_ADDRESS = new_ip
-
-    def get_ip(self):
-        return self.IP_ADDRESS
-
-    def increment_count(self):
-        self.timed_count += 1
-        self.total_count += 1
-
-    def decrement_timed(self):
-        self.timed_count -= 1
-
-    def reset_timed(self):
-        self.timed_count = 0
-
-    def get_timed_count(self):
-        return self.timed_count
-
-    def get_total_count(self):
-        return self.total_count
-
+# TODO: move counter to own file ✅
+# TODO: add DB (txt/csv file)
+# TODO: add cookie grabber? / pc fingerprint?
+# TODO: kill function
+# TODO: {cookie, fingerprint}.py file > validate > generate > force reset
 
 # Configuration
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
@@ -41,7 +19,7 @@ timed_max_pings = 3  # per second max
 total_max_pings = 6  # total transactions
 
 # Data Structures
-client_data = Connector()
+client_data = connector.Connector()
 data_lock = threading.Lock()
 
 
