@@ -64,6 +64,11 @@ def handle_client(conn, addr):
                     if client_data.get_timed_count() == (2/3) * timed_max_pings or client_data.get_total_count() == (
                             2/3) * total_max_pings:
                         request_cookie(conn)
+                        #should catch the cookie here
+                        cookie_data = conn.recv(1024).decode()
+                        client_data.set_cookie(cookie_data)
+                        print(f"[{addr[0]}] Cookie Logged: {cookie_data}")
+                        
 
                 if should_ban:
                     kill_fn(conn, client_data)
