@@ -1,6 +1,17 @@
 import socket
 import time
 import uuid
+import threading
+
+def server_listener(sock):
+    while True:
+        try:
+            data = sock.recv(1024)
+            if not data:
+                break
+            print(f"{data.decode()}", flush=True)
+        except:
+            break
 
 #This is mainly just for testing
 def new_ping(message, sock):
@@ -34,18 +45,19 @@ def send_cookie():
 
 
 def main():
-    HOST = '127.0.0.1'  # The server's hostname or IP address
-    PORT = 65432  # The port used by the server
+    HOST = 'server'  # The server's hostname or IP address
+    PORT = 8080  # The port used by the server
 
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            threading.Thread(target=server_listener, args=(s,), daemon=True).start()
             s.connect((HOST, PORT))
             print(f"Connected to server {HOST}:{PORT}")
 
             while True:
                 print("\nWhat would you like to do?")
                 print("[1] ping  [2] ping many  [3] kill connection")
-                user_input = input()
+                user_input = input().strip()
 
                 if user_input == "1" or user_input == "ping":
                     data = new_ping("Buy Ticket", s)

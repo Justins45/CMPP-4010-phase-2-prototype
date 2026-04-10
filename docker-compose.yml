@@ -1,0 +1,24 @@
+services:
+  server:
+    container_name: server
+    build: ./server
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+    networks:
+      - appnet
+
+  client:
+    build: ./client
+    working_dir: /app
+    depends_on:
+      - server
+    stdin_open: true
+    tty: true
+    networks:
+      - appnet
+
+networks:
+  appnet:

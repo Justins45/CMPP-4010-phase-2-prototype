@@ -5,8 +5,8 @@ import connector
 import datetime
 
 # Configuration
-HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
-PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
+HOST = '0.0.0.0'  # Standard loopback interface address (localhost)
+PORT = 8080  # Port to listen on (non-privileged ports are > 1023)
 
 # Set descriptive variables so we don't have to remember what the god numbers mean
 timed_max_pings = 3  # per second max
@@ -92,6 +92,7 @@ def kill_fn(conn, data):
     error_msg = "SCAMMER GET SCAMMED"
     conn.sendall(error_msg.encode())
     add_scammer_to_db(data.IP_ADDRESS)
+    conn.close()
     # conn.fuckoff
 
 def request_cookie(conn):
@@ -121,5 +122,5 @@ def main():
             #handle_client(conn, addr)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
