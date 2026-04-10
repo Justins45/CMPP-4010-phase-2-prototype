@@ -48,6 +48,14 @@ def handle_client(conn, addr):
                 #       the client data
 
                 with data_lock:
+
+                    # for performance tests we do not want to check the timed or the total pings
+                    # otherwise we brick the tests
+                    if data.decode() == "performance ping":
+                        client_data.reset_timed()
+                        client_data.total_count = 0
+
+
                     #Increment counts
                     client_data.increment_count()
 

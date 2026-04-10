@@ -56,7 +56,7 @@ def main():
 
             while True:
                 print("\nWhat would you like to do?")
-                print("[1] ping  [2] ping many  [3] kill connection")
+                print("[1] ping  [2] ping many  [3] kill connection [4] Check Performance")
                 user_input = input().strip()
 
                 if user_input == "1" or user_input == "ping":
@@ -80,6 +80,23 @@ def main():
 
                 elif user_input == "3" or user_input == "kill":
                     print("Killing Connection")
+                    break
+
+                elif user_input == "4" or user_input.lower() == "check performance":
+                    print("Checking performance of server response time")
+                    message = "performance ping"
+                    start_time = time.perf_counter()
+
+
+                    print("Starting loop")
+                    for i in range(1000):
+                        new_ping(message, s)
+                        print(i)
+
+                    print("Finished loop")
+                    endtime = time.perf_counter()
+
+                    print(f"Performance Check for 1000 pings is {endtime - start_time:.4f} seconds.")
                     break
 
             # TODO: setup a checker for incoming pings with data string of "gibcookie"
